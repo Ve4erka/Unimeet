@@ -1,0 +1,85 @@
+{
+    "result": "True",
+    "data": [
+      {
+        "event_uuid": "be75e619-f342-4aa4-93ec-91dd42908e58",
+        "event_name": "e1",
+        "event_type": "123",
+        "event_description": "123",
+        "event_date": "2023-10-18T18:41:43+03:00",
+        "event_place": "13",
+        "date_create": "2023-10-18T18:41:46.138628+03:00",
+        "event_img": [
+          {
+            "id": 1,
+            "entity_pk": "be75e619-f342-4aa4-93ec-91dd42908e58",
+            "entity_img": "/media/log_JDa4Jnr.jpg"
+          },
+          {
+            "id": 2,
+            "entity_pk": "be75e619-f342-4aa4-93ec-91dd42908e58",
+            "entity_img": "/media/apple_cBfALCV.png"
+          }
+        ],
+        "event_users": [
+          {
+            "id": 1,
+            "user_hash": "f17a7779e5309ca35e77deedabc52670c94b8e10a502db47834006b32f7c7f52",
+            "event_uuid": "be75e619-f342-4aa4-93ec-91dd42908e58"
+          }
+        ],
+        "event_owners": [
+          {
+            "id": 1,
+            "event_uuid": "be75e619-f342-4aa4-93ec-91dd42908e58",
+            "owner_name": "123",
+            "owner_contacts": {
+              "jopa": 50,
+              "phone": "12312312"
+            }
+          }
+        ]
+      },
+      {
+        "event_uuid": "3e7c1e91-b897-4dd0-b75b-ed9d55ce0249",
+        "event_name": "e2",
+        "event_type": "123",
+        "event_description": "123",
+        "event_date": "2023-10-18T18:41:50+03:00",
+        "event_place": "123",
+        "date_create": "2023-10-18T18:41:52.326773+03:00"
+      },
+      {
+        "event_uuid": "a8ea4c89-f4b9-4251-8971-0b07f06a8add",
+        "event_name": "Сборная театра мод СГУ 'Podium diamonds'",
+        "event_type": "Театр мод",
+        "event_description": "Сюжетные постановки с элементами дефиле и демонстрацией необычных костюмов",
+        "event_date": "2023-10-22T17:39:18+03:00",
+        "event_place": "123",
+        "date_create": "2023-10-22T17:40:05.475807+03:00",
+        "event_users": [
+          {
+            "id": 2,
+            "user_hash": "d2f4733754df374c608086803e7f0d7c3569101171f3b111f7ebb1500c9e5bad",
+            "event_uuid": "a8ea4c89-f4b9-4251-8971-0b07f06a8add"
+          },
+          {
+            "id": 3,
+            "user_hash": "a6f4996a6846e4ac4a03e79a2d38c99af29fe56af03ec744c0dcacb83580584a",
+            "event_uuid": "a8ea4c89-f4b9-4251-8971-0b07f06a8add"
+          }
+        ],
+        "event_owners": [
+          {
+            "id": 2,
+            "event_uuid": "a8ea4c89-f4b9-4251-8971-0b07f06a8add",
+            "owner_name": "Божедомова Алла Ивановна",
+            "owner_contacts": {
+              "tel": "89198334578",
+              "social_media": "@allabozhedomova"
+            }
+          }
+        ]
+      }
+    ]
+  }

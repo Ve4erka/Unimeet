@@ -66,6 +66,18 @@ class CurrentEventPage extends Component{
         )
     }
    
+
+    renderContacts = (data) => {
+        console.log('ГЕНЕРИРУЕМ КОНТАКТЫ')
+        console.log(data);
+        if(data == undefined) return;
+        for (let i = 0; i<data.length; i++){
+            return(
+                <EventOwnerElem data_owner = {data[i]}/>
+            )
+        }
+    }
+
     render(){
 
         const {eventGenerateData} = this.state;
@@ -106,54 +118,46 @@ class CurrentEventPage extends Component{
                     
                 </TouchableOpacity>
                 <ScrollView>
-                { eventGenerateData.event_img.length == 0 ? (
-                    <></>
-                ):(
+                    {/* { eventGenerateData.event_img.length == 0 ? (
+                        <></>
+                    ):(
+                        <View style = {styles.eventBlock}>
+                            <Text style = {styles.eventBlockSmallTitle}>Фото</Text>
+                            <FlatList
+                                horizontal
+                                overScrollMode="never"
+                                showsHorizontalScrollIndicator={false}
+                                data={eventGenerateData.event_img}
+                                //keyExtractor={item => item["event"]["event_uuid"]}
+                                renderItem={({item}) => (
+                                    <Image
+                                        source={''}
+                                        style = {styles.eventImagesPattern}
+                                    />
+                                )}
+                            />
+                        </View>
+                    )} */}
                     <View style = {styles.eventBlock}>
-                        <Text style = {styles.eventBlockSmallTitle}>Фото</Text>
-                        <FlatList
-                            horizontal
-                            overScrollMode="never"
-                            showsHorizontalScrollIndicator={false}
-                            data={eventGenerateData.event_img}
-                            //keyExtractor={item => item["event"]["event_uuid"]}
-                            renderItem={({item}) => (
-                                <Image
-                                    source={''}
-                                    style = {styles.eventImagesPattern}
-                                />
-                            )}
+                        <Text style = {styles.eventBlockSmallTitle}>описание</Text>
+                        <TextInput
+                            multiline={true}
+                            style={styles.eventDescription}
+                            value={eventGenerateData.event_description}
+                            editable = {false}
                         />
                     </View>
-                )}
-                <View style = {styles.eventBlock}>
-                    <Text style = {styles.eventBlockSmallTitle}>описание</Text>
-                    <TextInput
-                        multiline={true}
-                        style={styles.eventDescription}
-                        value={eventGenerateData.event_description}
-                        editable = {false}
-                    />
-                </View>
-                <View style = {styles.eventBlock}>
-                    <Text style = {styles.eventBlockSmallTitle}>контакты</Text>
-                    <FlatList
-                        overScrollMode = "never"
-                        showsVerticalScrollIndicator = {false}
-                        data = {eventGenerateData.event_owners}
-                        renderItem =  {({item}) => (
-                            <EventOwnerElem data_owner = {item}/>
-                        )}  
-                        style = {{'width': '100%'}}
-                    />
-                </View>
-                
-                <TouchableOpacity
-                    style = {styles.eventButtonPattern}
-                    onPress = {this.openMembersList}
-                >
-                    <Text style = {styles.eventButtonPatternText}>Участники</Text>
-                </TouchableOpacity>
+                    <View style = {styles.eventBlock}>
+                        <Text style = {styles.eventBlockSmallTitle}>контакты</Text>
+                        {this.renderContacts(eventGenerateData.event_owners)}
+                    </View>
+                    
+                    <TouchableOpacity
+                        style = {styles.eventButtonPattern}
+                        onPress = {this.openMembersList}
+                    >
+                        <Text style = {styles.eventButtonPatternText}>Участники</Text>
+                    </TouchableOpacity>
                 </ScrollView>
                 <Modalize 
                     ref={this.modalizeRef}

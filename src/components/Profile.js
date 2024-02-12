@@ -178,6 +178,7 @@ const profile_styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: ColorsApp.white,
         borderRadius: 8,
+        
     }
 })
 

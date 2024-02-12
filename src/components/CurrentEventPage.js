@@ -97,7 +97,9 @@ class CurrentEventPage extends Component{
 
         return(
             <GestureHandlerRootView style = {styles.container}>
-            <ScrollView>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <View style = {styles.headerblock}>
                     <Image
                         source={require('../images/logo-event.png')}
@@ -160,25 +162,25 @@ class CurrentEventPage extends Component{
                         <Text style = {styles.eventButtonPatternText}>Участники</Text>
                     </TouchableOpacity>
                 
-                <Modalize 
-                    ref={this.modalizeRef}
-                    //alwaysOpen={190}
-                    handlePosition='inside'
-                    avoidKeyboardLikeIOS={true}
-                    modalHeight={this.height - 50}
-                    snapPoint={this.height/2}
-                    modalStyle={[styles.modalizeContainer, {width:this.width - 2}]}
-                    handleStyle = {styles.modalizeHandleShape}
-                    flatListProps={
-                        eventGenerateData.event_users?.length > 0
-                          ? {
-                              data: eventGenerateData.event_users,
-                              renderItem: this.renderUser,
-                            }
-                          : undefined
-                      }
-                >                    
-                </Modalize>
+                    <Modalize 
+                        ref={this.modalizeRef}
+                        //alwaysOpen={190}
+                        handlePosition='inside'
+                        avoidKeyboardLikeIOS={true}
+                        modalHeight={this.height - 50}
+                        snapPoint={this.height/2}
+                        modalStyle={[styles.modalizeContainer, {width:this.width - 2}]}
+                        handleStyle = {styles.modalizeHandleShape}
+                        flatListProps={
+                            eventGenerateData.event_users?.length > 0
+                            ? {
+                                data: eventGenerateData.event_users,
+                                renderItem: this.renderUser,
+                                }
+                            : undefined
+                        }
+                    >                    
+                    </Modalize>
                 </ScrollView>
             </GestureHandlerRootView>
         )

@@ -13,6 +13,8 @@ export default async function confirmEdit (data){
             formData.append(key, data[key]);
         }
     }
+    console.log('выгружаем данные');
+    console.log(formData);
     result = await handleConfirmEdit(formData);
     return result;
 };

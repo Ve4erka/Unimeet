@@ -14,8 +14,6 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 class EditContentScreen extends Component {
     constructor(props) {
         super(props);
-        console.log('ПРОПСЫ В РЕДАКТИРОВАНИИ')
-        console.log(this.props);
         this.state = {
             componentIndex: 0,
             inputValues: {

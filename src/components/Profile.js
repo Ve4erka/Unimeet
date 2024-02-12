@@ -66,7 +66,7 @@ class Profile extends Component{
                             {
                                 ...user_data.user_img ? 
                                 ({
-                                    source: { uri: Address+'api/v1' + this.props.user_img[0].entity_img },
+                                    source: { uri: user_data.user_img},
                                     resizeMode: 'cover'
                                 }) 
                                 :

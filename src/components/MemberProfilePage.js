@@ -50,9 +50,9 @@ class MemberProfilePage extends Component{
                     <View style = {[styles.screenContent, {paddingHorizontal:0}]}>
                         <ImageBackground 
                             {
-                                ...this.data_user.user_img && this.data_user.user_img.length !== 0 ? 
+                                ...this.data_user.user_img ? 
                                 ({
-                                    source: { uri: Address+ 'api/v1' + this.data_user.user_img[0].entity_img },
+                                    source: { uri: this.data_user.user_img},
                                     resizeMode: 'cover'
                                 }) 
                                 :

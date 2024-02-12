@@ -97,6 +97,7 @@ class CurrentEventPage extends Component{
 
         return(
             <GestureHandlerRootView style = {styles.container}>
+            <ScrollView>
                 <View style = {styles.headerblock}>
                     <Image
                         source={require('../images/logo-event.png')}
@@ -117,7 +118,7 @@ class CurrentEventPage extends Component{
                     }
                     
                 </TouchableOpacity>
-                <ScrollView>
+                
                     {/* { eventGenerateData.event_img.length == 0 ? (
                         <></>
                     ):(
@@ -158,7 +159,7 @@ class CurrentEventPage extends Component{
                     >
                         <Text style = {styles.eventButtonPatternText}>Участники</Text>
                     </TouchableOpacity>
-                </ScrollView>
+                
                 <Modalize 
                     ref={this.modalizeRef}
                     //alwaysOpen={190}
@@ -178,6 +179,7 @@ class CurrentEventPage extends Component{
                       }
                 >                    
                 </Modalize>
+                </ScrollView>
             </GestureHandlerRootView>
         )
     }

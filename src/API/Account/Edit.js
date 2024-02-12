@@ -5,9 +5,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default async function confirmEdit (data){
     let result = "";
     let formData = new FormData();
+    console.log('Хрень пришедшая в сохранение изменений');
+    console.log(data);
     for (let key in data){
         if(key == "user_education"){
             formData.append(key, JSON.stringify(data[key]));
+        }
+        else if (key == "user_img"){
+            formData.append(key,{
+                uri: data[key],
+                type: 'image/jpeg',
+                name: 'test.jpg'
+            })
         }
         else{
             formData.append(key, data[key]);

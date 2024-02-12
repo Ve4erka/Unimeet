@@ -100,9 +100,14 @@ class Events extends Component{
                             style = {styles.footerImg}
                         />
                         <TouchableOpacity onPress = {()=>{this.loadChatsScene()}}>
-                            <Image
+                            {/* <Image
                                 style = {styles.footerImg}
                                 source={require('../images/messagesIcon.png')}
+                            /> */}
+                            <SvgUri
+                                width = "30"
+                                height = "30"
+                                uri = "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/android.svg"
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress = {()=>{this.loadProfileScene()}}>

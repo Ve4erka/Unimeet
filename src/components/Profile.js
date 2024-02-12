@@ -81,6 +81,7 @@ class Profile extends Component{
                         <View style = {profile_styles.edit_content_action}>
                             <TouchableOpacity
                                 onPress={this.loadEditScreen}
+                                style = {profile_styles.editContentIconblock}
                             >
                                 <Image
                                     source={require('../images/editIcon3.png')}
@@ -168,6 +169,15 @@ const profile_styles = StyleSheet.create({
         fontSize:22,
         //fontWeight:700,
         color: ColorsApp.font_color,
+    },
+    editContentIconblock:{
+        width: 40,
+        height: 40,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: ColorsApp.white,
+        borderRadius: 8,
     }
 })
 

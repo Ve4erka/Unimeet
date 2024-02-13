@@ -10,6 +10,7 @@ import EditAboutMe from './EditComponent/editAboutMe';
 import EditProfilePhoto from './EditComponent/editProfilePhoto';
 import Edit from '../API/Account/Edit';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class EditContentScreen extends Component {
     constructor(props) {
@@ -77,6 +78,12 @@ class EditContentScreen extends Component {
         this.props.navigation.navigate("Profile");
     }
 
+    async logOut(){
+        await AsyncStorage.setItem('accessToken', "");
+        await AsyncStorage.setItem('refreshToken', "");
+        this.props.navigation.navigate("Login")
+    }
+
     render() {
         const { inputValues } = this.state;
         return (
@@ -97,7 +104,7 @@ class EditContentScreen extends Component {
                         <EditEducation onInputChange={this.handleInputChange} defaultValue = {inputValues["user_education"]} />
                         <EditAboutMe onInputChange={this.handleInputChange} defaultValue = {inputValues["user_description"]} />
                         <TouchableOpacity style = {edit_styles.edit_button} onPress={ () => this.confirmChanges() }><Text style = {edit_styles.edit_button_text} >Сохранить</Text></TouchableOpacity>
-                        <TouchableOpacity style = {[edit_styles.edit_button]} onPress={ () => {} }><Text style = {[edit_styles.edit_button_text, {color:ColorsApp.main_red}]} >Выйти</Text></TouchableOpacity>
+                        <TouchableOpacity style = {[edit_styles.edit_button]} onPress={ () => {this.logOut()} }><Text style = {[edit_styles.edit_button_text, {color:ColorsApp.main_red}]} >Выйти</Text></TouchableOpacity>
                     </ScrollView>
                 </View>
             </GestureHandlerRootView>

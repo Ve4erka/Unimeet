@@ -10,6 +10,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import {connect} from 'react-redux';
 import { ColorsApp } from '../styles/colors';
 import ChatElem from './ChatElem';
+import { Dimensions } from 'react-native';
 
 
 class Chats extends Component{
@@ -21,7 +22,9 @@ class Chats extends Component{
             chats:[],
             isLoading:true,
         }
-        this.user_hash = this.props.user_data.user_hash
+        this.user_hash = this.props.user_data.user_hash;
+        console.log('ШЫРИНА')
+        console.log(Dimensions.get('window').width);
     }
 
     componentDidMount(){

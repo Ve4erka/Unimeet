@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, TouchableOpacity, FlatList, TextInput, Sc
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import GetCurrentEvent from '../API/Events/GetCurrentEvent';
 import GetCurrentMember from '../API/Events/GetCurrentMember';
+import ChangeSubscribe from '../API/Events/ChangeSubscribe';
 import { ColorsApp } from '../styles/colors';
 import { Modalize } from 'react-native-modalize';
 import EventOwnerElem from './EventOwnerElem';
@@ -44,6 +45,21 @@ class CurrentEventPage extends Component{
             return;
         }
         
+    }
+
+    async subscribe() {
+        let data = await ChangeSubscribe(eventKey);
+        console.log('ПОДПИСАТЬСЯ', data);
+        if(data["data"]["is_subscribed"] !== undefined) {
+            // Копируем объект eventGenerateData
+            let updatedEventGenerateData = { ...this.state.eventGenerateData };
+    
+            // Обновляем значение ключа в скопированном объекте
+            updatedEventGenerateData.subscribed = data["data"]["is_subscribed"];
+    
+            // Обновляем состояние с обновленным объектом eventGenerateData
+            this.setState({ eventGenerateData: updatedEventGenerateData });
+        }
     }
 
     renderUser = (item) =>{
@@ -110,7 +126,7 @@ class CurrentEventPage extends Component{
                 </View>
                 <TouchableOpacity
                     style = {styles.eventButtonPattern}
-                    onPress = {()=>{console.log('Че тыкаешь?')}}
+                    onPress = {()=>{this.subscribe()}}
                 >
                     {
                         eventGenerateData.subscribed ?
@@ -156,7 +172,7 @@ class CurrentEventPage extends Component{
                     </View>
                     
                     <TouchableOpacity
-                        style = {styles.eventButtonPattern}
+                        style = {[styles.eventButtonPattern, {marginBottom: 10}]}
                         onPress = {this.openMembersList}
                     >
                         <Text style = {styles.eventButtonPatternText}>Участники</Text>

@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius:8,
   },
   input_style:{
-    width:"80%",
+    width:"75%",
     height:40,
     paddingHorizontal: 19,
     fontSize:16,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     color: ColorsApp.font_color,
   },
   dropdown: {
-    width:"18%",
+    width:"20%",
     height: 40,
     // borderColor: ColorsApp.main_color,
     // borderWidth: 2,

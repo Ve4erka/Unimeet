@@ -7,6 +7,7 @@ import { Svg, SvgUri } from 'react-native-svg';
 import EventElem from './EventElem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Address } from '../API/System/config';
+import { ColorsApp } from '../styles/colors';
 
 
 class Events extends Component{
@@ -74,7 +75,7 @@ class Events extends Component{
                     <Text style = {styles.screenSubTitle}>Список возможных активностей в нашем университете:</Text>
                     <View style = {styles.eventsContent}>
                         {isLoading ? (
-                            <ActivityIndicator color = "#E94057" size = "large"/>
+                            <ActivityIndicator color = {ColorsApp.main_color} size = "large"/>
                             ) : (
                             <FlatList
                                 overScrollMode="never"

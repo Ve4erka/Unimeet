@@ -7,6 +7,7 @@ const initialState = {
    user_img: null,
    user_education : {},
    user_description:"",
+   user_hash:"",
 }
 const counterReducer = (state = initialState, action) => {
    console.log('БАБУБЫ')
@@ -25,6 +26,7 @@ const counterReducer = (state = initialState, action) => {
             user_img: action.payload.user_img ? action.payload.user_img : "",
             user_education: action.payload.user_education ? action.payload.user_education : {},
             user_description: action.payload.user_description ? action.payload.user_description : "",
+            user_hash: action.payload.user_hash ? action.payload.user_hash : "",
          }
       default: return state
    }

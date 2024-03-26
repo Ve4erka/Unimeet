@@ -34,8 +34,8 @@ class ChatElem extends Component{
                         <TextInput
                             multiline={true}
                             style={[styles_chat.chatName, {fontWeight:'bold'}]}
-                            value={this.data_generate_chat.chat_name.length > 30
-                                ? this.data_generate_chat.chat_name.slice(0, 30) + '...'
+                            value={this.data_generate_chat.chat_name.length > 20
+                                ? this.data_generate_chat.chat_name.slice(0, 20) + '...'
                                 : this.data_generate_chat.chat_name}
                             editable = {false}
                         />

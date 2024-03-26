@@ -55,7 +55,7 @@ class Chats extends Component{
 
         return(
             <GestureHandlerRootView style = {{flex:1}}>
-            <View style = {[styles.container, {paddingTop:30, backgroundColor: ColorsApp.fields_bg}]}>
+            <View style = {[styles.container, {paddingTop:30}]}>
                 <View style = {[styles.screenContent, chats_styles.mainContainer]}>
                     <Text style = {styles.screenTitle}>Чаты</Text>
                     <View style = {[styles.eventsContent, {}]}>

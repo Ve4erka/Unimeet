@@ -6,6 +6,7 @@ import Signin from "../components/Sigin";
 import Profile from "../components/Profile";
 import Events from "../components/Events";
 import CurrentEventPage from "../components/CurrentEventPage";
+import CurrentChatPage from "../components/CurrentChatPage";
 import Chats from "../components/Chats";
 import EditContentScreen from "../components/EditContentScreen";
 import MemberProfilePage from "../components/MemberProfilePage";
@@ -55,6 +56,10 @@ class NavigateLog extends Component {
           <Stack.Screen
             name = "CurrentEventPage"
             component={CurrentEventPage}
+          />
+          <Stack.Screen
+            name = "CurrentChatPage"
+            component={CurrentChatPage}
           />
           <Stack.Screen
             name = "MemberProfilePage"

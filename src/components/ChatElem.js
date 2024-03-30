@@ -15,8 +15,7 @@ class ChatElem extends Component{
     }
 
     navigateToCurrentChatPage = () => {
-        console.log('test');
-        //this.props.navigation.navigate('CurrentEventPage', {eventKey:this.props.data.event_uuid});
+        this.props.navigation.navigate('CurrentChatPage', {chat_id:this.props.data.chat_id});
     }
 
     render(){

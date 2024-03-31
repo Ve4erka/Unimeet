@@ -10,8 +10,8 @@ class ChatElem extends Component {
         super(props);
         // console.log('пропсы миниэлемента');
         // console.log(this.props);
-        console.log('CHAT ELEM');
-        console.log(this.props.data);
+        // console.log('CHAT ELEM');
+        // console.log(this.props.data);
         this.state = {
             data_generate_chat: this.props.data,
         }
@@ -20,10 +20,10 @@ class ChatElem extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('ДО');
-        console.log(prevProps.data)
-        console.log('После');
-        console.log(this.props.data);
+        // console.log('ДО');
+        // console.log(prevProps.data)
+        // console.log('После');
+        // console.log(this.props.data);
         if (this.props.data !== prevProps.data) {
             this.setState({ data_generate_chat: this.props.data });
         }

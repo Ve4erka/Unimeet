@@ -23,8 +23,8 @@ class Chats extends Component {
             isLoading: true,
         }
         this.user_hash = this.props.user_data.user_hash;
-        console.log('ШЫРИНА')
-        console.log(Dimensions.get('window').width);
+        // console.log('ШЫРИНА')
+        // console.log(Dimensions.get('window').width);
     }
 
     componentDidMount() {
@@ -36,11 +36,11 @@ class Chats extends Component {
         };
 
         this.client.onmessage = (message) => {
-            console.log('Сообщения из CHATS');
-            console.log(message);
+            // console.log('Сообщения из CHATS');
+            // console.log(message);
             const newChats = JSON.parse(message.data).user_chat_list;
-            console.log('То что прокидываем в State');
-            console.log(newChats);
+            // console.log('То что прокидываем в State');
+            // console.log(newChats);
 
             this.setState({
                 isLoading: false,
@@ -51,14 +51,14 @@ class Chats extends Component {
 
     renderChats(isLoading, chats) {
 
-        console.log('Вызвался?');
-        console.log(isLoading);
-        console.log(chats);
+        // console.log('Вызвался?');
+        // console.log(isLoading);
+        // console.log(chats);
         if (isLoading) {
             return <ActivityIndicator color={ColorsApp.main_color} size="large" />
         }
         else {
-            console.log("Перерисовываем ъуъ")
+            // console.log("Перерисовываем ъуъ")
             return <FlatList
                 overScrollMode="never"
                 showsVerticalScrollIndicator={false}
@@ -85,8 +85,8 @@ class Chats extends Component {
     render() {
 
         const { chats, isLoading } = this.state;
-        console.log('Генерация списка');
-        console.log(chats);
+        // console.log('Генерация списка');
+        // console.log(chats);
 
         return (
             <GestureHandlerRootView style={{ flex: 1 }}>

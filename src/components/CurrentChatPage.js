@@ -168,10 +168,10 @@ class CurrentChatPage extends Component {
                     dateFormat='DD.MM.YYYY'
                     user={{ _id: this.user_data.user_hash, name: this.user_data.user_name, avatar: this.user_data.user_img }} // Уникальный идентификатор пользователя
                     listViewProps={{
-                        onScroll: ({ nativeEvent }) => {
-                            this.onScroll(nativeEvent);
-                        },
-                        getItemLayout: this.getItemLayout,
+                        // onScroll: ({ nativeEvent }) => {
+                        //     this.onScroll(nativeEvent);
+                        // },
+                        // getItemLayout: this.getItemLayout,
                     }}
                     renderBubble={(props) => (
                         <View onLayout={(event) => {
@@ -182,11 +182,11 @@ class CurrentChatPage extends Component {
                                 this.setState(prevState => ({
                                     unread_messages: { ...prevState.unread_messages, [messageId]: height }
                                 }), () => {
-                                    console.log('UPDATED unread_messages:', this.state.unread_messages);
-                                    console.log(count_all_messages);
-                                    console.log(Object.keys(this.state.unread_messages).length);
-                                    if (count_all_messages == Object.keys(this.state.unread_messages).length) this.scrollToTop();
-                                    console.log('Каво?', Object.keys(this.state.unread_messages));
+                                    // console.log('UPDATED unread_messages:', this.state.unread_messages);
+                                    // console.log(count_all_messages);
+                                    // console.log(Object.keys(this.state.unread_messages).length);
+                                    // if (count_all_messages == Object.keys(this.state.unread_messages).length) this.scrollToTop();
+                                    // console.log('Каво?', Object.keys(this.state.unread_messages));
                                 });
                             }
                         }}>

@@ -132,7 +132,7 @@ const chats_styles = StyleSheet.create({
     },
     header_block:{
         backgroundColor:ColorsApp.fields_bg,
-        height:60,
+        height:65,
         display:'flex',
         flexDirection:'column',
         justifyContent:'flex-end',

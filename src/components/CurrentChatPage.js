@@ -295,9 +295,9 @@ class CurrentChatPage extends Component {
                     dateFormat='DD.MM.YYYY'
                     user={{ _id: this.user_data.user_hash, name: this.user_data.user_name, avatar: this.user_data.user_img }} // Уникальный идентификатор пользователя
                     listViewProps={{
-                        // onScroll: ({ nativeEvent }) => {
-                        //     this.onScroll(nativeEvent);
-                        // },
+                        onScroll: ({ nativeEvent }) => {
+                            this.onScroll(nativeEvent);
+                        },
                         getItemLayout: this.getItemLayout,
                     }}
                     renderBubble={(props) => (
@@ -369,7 +369,7 @@ const chat_page_styles = StyleSheet.create({
         backgroundColor: ColorsApp.white,
     },
     header: {
-        height: 65,
+        height: 75,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

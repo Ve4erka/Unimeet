@@ -30,7 +30,7 @@ class ChatElem extends Component {
     }
 
     navigateToCurrentChatPage = () => {
-        this.props.navigation.navigate('CurrentChatPage', { chat_id: this.props.data.chat_id });
+        this.props.navigation.navigate('CurrentChatPage', { chat_id: this.props.data.chat_id, data_generate: this.state.data_generate_chat });
     }
 
     render() {
@@ -100,11 +100,9 @@ const styles_chat = StyleSheet.create({
         width: '100%',
         display: "flex",
         flexDirection: 'row',
-        alignItems: "center",
-        marginBottom: 14,
-        borderRadius: 8,
+        alignItems: "center",      
         backgroundColor: ColorsApp.white,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: ColorsApp.lines_color,
         paddingLeft: 5,
     },

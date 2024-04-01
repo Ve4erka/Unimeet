@@ -4,17 +4,25 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { GiftedChat, Bubble, Avatar } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
+import GetCurrentMember from '../API/Events/GetCurrentMember';
+import { ColorsApp } from '../styles/colors';
+import { styles } from '../styles/styles';
+import { Modalize } from 'react-native-modalize';
 
 
 class CurrentChatPage extends Component {
     constructor(props) {
         super(props);
         console.log('ПРОПСЫ ЭКРАНА ЧАТА');
-        console.log(props);
+        // console.log(props);
         this.chatId = props.route.params.chat_id;
+        this.chat_name = props.route.params.data_generate.chat_name;
         console.log(this.chatId);
         this.user_hash = props.user_data.user_hash;
         this.user_data = props.user_data;
+        this.height = Dimensions.get('screen').height;
+        this.width = Dimensions.get('screen').width;
+        this.modalizeRef = React.createRef();
         console.log(this.user_hash);
         this.chatRef = React.createRef();
         this.state = {
@@ -27,8 +35,9 @@ class CurrentChatPage extends Component {
             first_unread_message_id: null,
             date_first_taken: "",
             get_more: true,
-            date_last_unread:"",
+            date_last_unread: "",
             get_more_unread: true,
+            members: {}
         }
     }
 
@@ -41,7 +50,12 @@ class CurrentChatPage extends Component {
         this.client.onmessage = async (message) => {
             let message_parsed = JSON.parse(message.data);
             console.log('//////////////////////////');
-            console.log(message_parsed);
+            console.log(message_parsed.members_list);
+            if (message_parsed.members_list) {
+                this.setState({ members: message_parsed.members_list.event_users },()=>{
+                    console.log(this.state.members);
+                });
+            }
             let count_already_read_messages = message_parsed.messages ? message_parsed.messages.length : 0;
             // let count_already_read_messages = message_parsed.messages?.length;
             if (message_parsed.type == "previous_messages") {
@@ -56,7 +70,7 @@ class CurrentChatPage extends Component {
                 }
                 if (message_parsed.unread_messages.length) {
                     if (message_parsed.unread_messages.length == 30) {
-                        this.setState({ date_last_unread: message_parsed.unread_messages[message_parsed.unread_messages.length - 1].message_data.createdAt, get_more_unread : true });
+                        this.setState({ date_last_unread: message_parsed.unread_messages[message_parsed.unread_messages.length - 1].message_data.createdAt, get_more_unread: true });
                     }
                     this.setState({ count_all_unread_messages: message_parsed.unread_messages.length, show_unread_notif: true });
                     this.setState({ first_unread_message_id: message_parsed.unread_messages[0].message_data._id });
@@ -73,7 +87,7 @@ class CurrentChatPage extends Component {
                 console.log('Мы сразу упали сюда');
                 if (message_parsed.loading_more) {
                     if (message_parsed.messages.length) {
-                        this.setState({ date_first_taken: message_parsed.messages[message_parsed.messages.length - 1].message_data.createdAt }, ()=>{
+                        this.setState({ date_first_taken: message_parsed.messages[message_parsed.messages.length - 1].message_data.createdAt }, () => {
                         });
                         for (let new_message of message_parsed.messages) {
                             //console.log(new_message);
@@ -85,9 +99,9 @@ class CurrentChatPage extends Component {
                         this.setState({ get_more: false });
                     }
                     else {
-                        if(message_parsed.unread_messages.length){
+                        if (message_parsed.unread_messages.length) {
                             this.setState({ date_last_unread: message_parsed.unread_messages[message_parsed.unread_messages.length - 1].message_data.createdAt })
-                            for (let unread_message of message_parsed.unread_messages){
+                            for (let unread_message of message_parsed.unread_messages) {
 
                                 unread_message.message_data["new"] = true;
                                 this.setState((previousState) => ({
@@ -96,7 +110,7 @@ class CurrentChatPage extends Component {
                             }
                             this.setState({ get_more_unread: false });
                         }
-                        
+
                     }
                 }
                 else {
@@ -212,16 +226,67 @@ class CurrentChatPage extends Component {
 
     }
 
-    handlePressAvatar = (user) =>{
-        console.log(user);
+    handlePressAvatar = async (user, type = '') => {
+        let memberData = {};
+        if(type == 'modal'){
+            memberData = await GetCurrentMember(user);
+        }
+        else{
+            memberData = await GetCurrentMember(user._id);
+        }
+       
+        console.log(memberData);
+        this.props.navigation.navigate('MemberProfilePage', { data_user: memberData });
+    }
+
+    openMembersList = () => {
+        console.log('визвался');
+        console.log(this.state.members);
+        if (this.state.members.length){
+            this.modalizeRef.current?.open();
+        }
+        else{
+            return;
+        }
+        
+    }
+
+    renderUser = (item) => {
+
+        console.log('ITEM');
+        console.log(item);
+        return (
+            <TouchableOpacity
+                style={chat_page_styles.memberPattern}
+                onPress={() => { this.handlePressAvatar(item.item.user_hash, 'modal') }}
+            >
+                <View style={chat_page_styles.memberPhotoBlock}>
+                    <Image
+                        source={item.item.user_image ? { uri: item.item.user_image } : require('../images/memberEmptyImg.png')}
+                        style={chat_page_styles.memberPhotoStyle}
+                    />
+                </View>
+                <View style={[chat_page_styles.memberNameBlock, { width: this.width - 75 }]}>
+                    <Text style={chat_page_styles.memberName}>{item.item.user_name ? item.item.user_name : "Варакин Иван"}</Text>
+                </View>
+            </TouchableOpacity>
+        )
     }
 
     render() {
 
-        const { count_all_unread_messages, show_unread_notif, first_unread_message_id } = this.state;
+        const { count_all_unread_messages, show_unread_notif, first_unread_message_id, members } = this.state;
 
         return (
-            <>
+            <GestureHandlerRootView style={[styles.container, { paddingTop: 0 }]}>
+                <View style={chat_page_styles.header}>
+                    <Text style={chat_page_styles.header_title}>{this.chat_name}</Text>
+                    <TouchableOpacity
+                        onPress={this.openMembersList}
+                    >
+                        <Text style={chat_page_styles.header_members}>Участники</Text>
+                    </TouchableOpacity>
+                </View>
                 <GiftedChat
                     messageContainerRef={this.chatRef}
                     messages={this.state.messages}
@@ -230,15 +295,15 @@ class CurrentChatPage extends Component {
                     dateFormat='DD.MM.YYYY'
                     user={{ _id: this.user_data.user_hash, name: this.user_data.user_name, avatar: this.user_data.user_img }} // Уникальный идентификатор пользователя
                     listViewProps={{
-                        onScroll: ({ nativeEvent }) => {
-                            this.onScroll(nativeEvent);
-                        },
+                        // onScroll: ({ nativeEvent }) => {
+                        //     this.onScroll(nativeEvent);
+                        // },
                         getItemLayout: this.getItemLayout,
                     }}
                     renderBubble={(props) => (
                         <View onLayout={(event) => {
                             const { height } = event.nativeEvent.layout;
-                            if ((props.currentMessage.new && props.currentMessage.unread) || props.currentMessage.old ) {
+                            if ((props.currentMessage.new && props.currentMessage.unread) || props.currentMessage.old) {
                                 const messageId = props.currentMessage._id;
                                 //console.log(messageId, 'Мессага ИД');
                                 this.setState(prevState => ({
@@ -246,17 +311,17 @@ class CurrentChatPage extends Component {
                                 }), () => {
                                     if (count_all_unread_messages == Object.keys(this.state.unread_messages).length && this.state.get_more_unread) this.scrollToTop();
                                 });
-                                if (props.currentMessage.createdAt == this.state.date_last_unread){
-                                    this.setState({get_more_unread : true});
+                                if (props.currentMessage.createdAt == this.state.date_last_unread) {
+                                    this.setState({ get_more_unread: true });
                                 }
                             }
-                            if(props.currentMessage.old_read){
+                            if (props.currentMessage.old_read) {
                                 if (props.currentMessage.createdAt == this.state.date_first_taken) {
                                     this.setState({ get_more: true });
                                 }
                             }
                         }}>
-                            {show_unread_notif && ((props.currentMessage.new && props.currentMessage.unread) || props.currentMessage.old) && props.currentMessage._id == first_unread_message_id ? <Text>Непрочитанные сообщения</Text> : <></>}
+                            {show_unread_notif && ((props.currentMessage.new && props.currentMessage.unread) || props.currentMessage.old) && props.currentMessage._id == first_unread_message_id ? <Text style = {chat_page_styles.unread_message_notif}>Непрочитанные сообщения</Text> : <></>}
                             <Bubble
                                 {...props}
                                 wrapperStyle={{
@@ -272,12 +337,114 @@ class CurrentChatPage extends Component {
                             />
                         </View>
                     )}
+                    messagesContainerStyle={chat_page_styles.chat_container}
                     onPressAvatar={this.handlePressAvatar}
                 />
-            </>
+                <Modalize
+                    ref={this.modalizeRef}
+                    //alwaysOpen={190}
+                    handlePosition='inside'
+                    avoidKeyboardLikeIOS={true}
+                    modalHeight={this.height - 50}
+                    snapPoint={this.height / 2}
+                    modalStyle={[chat_page_styles.modalizeContainer, { width: this.width - 2 }]}
+                    handleStyle={styles.modalizeHandleShape}
+                    flatListProps={
+                        members
+                            ? {
+                                data: members,
+                                renderItem: this.renderUser,
+                            }
+                            : undefined
+                    }
+                >
+                </Modalize>
+            </GestureHandlerRootView>
         )
     }
 }
+
+const chat_page_styles = StyleSheet.create({
+    chat_container: {
+        backgroundColor: ColorsApp.white,
+    },
+    header: {
+        height: 65,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: ColorsApp.fields_bg,
+        borderBottomWidth: 1,
+        borderBottomColor: ColorsApp.lines_color,
+        paddingTop:30,
+        paddingBottom:10,
+    },
+    unread_message_notif:{
+        width: 300,
+        marginHorizontal:0,
+        textAlign:'center',
+        backgroundColor:ColorsApp.fields_bg,
+        color:ColorsApp.main_color,
+        borderRadius:5,
+        marginBottom:5,
+        marginTop:2,
+    },
+    header_title: {
+        color: ColorsApp.font_color,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 14,
+    },
+    header_members: {
+        color: ColorsApp.main_color,
+        textAlign: 'center',
+        fontSize: 14,
+    },
+    modalizeContainer:{
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        padding:10,
+        paddingTop:30,
+        marginHorizontal:'auto',
+        marginLeft:1,
+    },
+    modalizeHandleShape:{
+        backgroundColor: ColorsApp.main_color,
+        top:15
+    },
+    memberPattern:{
+        display:'flex',
+        flexDirection:'row',
+        height: 50,
+    },
+    memberPhotoBlock:{
+        width: 50,
+        height: 50,
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        marginRight: 5,
+    },
+    memberPhotoStyle:{
+        width: 40,
+        height: 40,
+        borderRadius:20,
+    },
+    memberNameBlock:{
+        display: 'flex',
+        flexDirection:"column",
+        height: 50,
+        justifyContent:"center",
+        borderBottomWidth: 1,
+        borderBottomColor: ColorsApp.lines_color,
+    },
+    memberName: {
+        fontSize:18,
+        //fontWeight: 500,
+        color: ColorsApp.font_color,
+    },
+})
 
 const mapStateToProps = (state) => {
     console.log('STATE');

@@ -90,27 +90,32 @@ class Chats extends Component {
 
         return (
             <GestureHandlerRootView style={{ flex: 1 }}>
-                <View style={[styles.container, { paddingTop: 30 }]}>
+                <View style={[styles.container, { paddingTop: 0 }]}>
                     <View style={[styles.screenContent, chats_styles.mainContainer]}>
-                        <Text style={styles.screenTitle}>Чаты-хуяты</Text>
-                        <View style={[styles.eventsContent, {}]}>
+                        <View style = {chats_styles.header_block}>
+                            <Text style={chats_styles.screenTitle}>Чаты</Text>
+                        </View>
+                        <View style={[styles.eventsContent]}>
                             {this.renderChats(isLoading, chats)}
                         </View>
                         <View style={styles.footer}>
                             <TouchableOpacity onPress={() => { this.loadEventsScene() }}>
-                                <Image
-                                    source={require('../images/eventsIcon.png')}
-                                    style={styles.footerImg}
+                                <SvgUri
+                                    width="30"
+                                    height="30"
+                                    uri="https://unimeet.ru/api/v1/media/images/icons8-events-96-_1_.svg"
                                 />
                             </TouchableOpacity>
-                            <Image
-                                style={styles.footerImg}
-                                source={require('../images/messagesIcon.png')}
+                            <SvgUri
+                                width="30"
+                                height="30"
+                                uri="https://unimeet.ru/api/v1/media/images/icons8-chat-96-_1_.svg"
                             />
                             <TouchableOpacity onPress={() => { this.loadProfileScene() }}>
-                                <Image
-                                    source={require('../images/userIcon.png')}
-                                    style={styles.footerImg}
+                                <SvgUri
+                                    width="30"
+                                    height="30"
+                                    uri="https://unimeet.ru/api/v1/media/images/icons8-male-user-96-_1_.svg"
                                 />
                             </TouchableOpacity>
                         </View>
@@ -123,8 +128,24 @@ class Chats extends Component {
 
 const chats_styles = StyleSheet.create({
     mainContainer: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 0,
     },
+    header_block:{
+        backgroundColor:ColorsApp.fields_bg,
+        height:50,
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'flex-end',
+        borderBottomWidth:1,
+        borderColor:ColorsApp.lines_color,
+    },
+    screenTitle:{
+        color:ColorsApp.font_color,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:17,
+        marginBottom:10,
+    }
 })
 
 const mapStateToProps = (state) => {

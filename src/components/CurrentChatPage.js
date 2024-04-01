@@ -369,7 +369,7 @@ const chat_page_styles = StyleSheet.create({
         backgroundColor: ColorsApp.white,
     },
     header: {
-        height: 75,
+        height: 85,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

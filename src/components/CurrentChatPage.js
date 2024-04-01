@@ -369,7 +369,7 @@ const chat_page_styles = StyleSheet.create({
         backgroundColor: ColorsApp.white,
     },
     header: {
-        height: 85,
+        height: 100,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -377,7 +377,7 @@ const chat_page_styles = StyleSheet.create({
         backgroundColor: ColorsApp.fields_bg,
         borderBottomWidth: 1,
         borderBottomColor: ColorsApp.lines_color,
-        paddingTop:30,
+        paddingTop:40,
         paddingBottom:10,
     },
     unread_message_notif:{
